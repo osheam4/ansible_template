@@ -1,0 +1,22 @@
+- hosts: all
+  #become: yes
+  #become_method: sudo
+  gather_facts: false
+
+  tasks:
+
+  - name: print var from stage
+    debug:
+      msg: '{{ env }}'
+
+  - name: ping server
+    ping:
+
+  - name: include vars
+    include_vars:
+      file: stages/{{ env }}/group_vars/ansible_vars.yml
+      name: ansible_vars
+
+  - name: print stage level variable
+    debug:
+      msg: '{{ ansible_vars.some_variable }}'
